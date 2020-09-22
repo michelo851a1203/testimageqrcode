@@ -105,6 +105,9 @@ export default {
         })
         .catch((err) => {
           step.s3 = "qrcodeObject Error ... ";
+          inputRef.value = "";
+            videoRef.value.src = null;
+            codeReader.reset();
           console.log("getCameraChange error", err);
         });
     };

@@ -85,10 +85,10 @@ export default {
       filereaderToVideo(mainFileList[0])
         .then((video) => {
           step.s3 = "getvideo ... ";
-          const videoObject = codeReader.decodeFromVideo(video);
-          if (!videoObject) {
-            step.s3 = `getvideo ... videoObject not get ${typeof videoObject}`;
-          }
+          // const videoObject = codeReader.decodeFromVideo(video);
+          // if (!videoObject) {
+          //   step.s3 = `getvideo ... videoObject not get ${typeof videoObject}`;
+          // }
           return codeReader.decodeFromVideo(video);
         })
         .then((qrcodeObject) => {

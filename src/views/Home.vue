@@ -4,7 +4,8 @@
       @click="cameraClick"
       class="bg-blue-500 focus:outline-none hover:bg-blue-700 text-white font-medium py-2 px-4 rounded"
     >test scan</button>
-    <span>result : {{ oData }}</span>
+    <p>result : {{ oData }}</p>
+    <p>is error : {{ errorRef }}</p>
     <img ref="imageRef" alt />
     <video class="w-full h-full" ref="videoRef"></video>
     <input
@@ -27,6 +28,7 @@ export default {
     const videoRef = ref(null);
     const inputRef = ref(null);
     const imageRef = ref(null);
+    const errorRef = ref("");
     const codeReader = new BrowserQRCodeReader();
     const oData = ref("");
 
@@ -49,6 +51,7 @@ export default {
           resolve(videoRef.value);
         };
         reader.onerror = () => {
+          errorRef.value = "fileReader error";
           reject(`fileReader error`);
         };
       });
@@ -60,6 +63,7 @@ export default {
         reader.onload = () => {
           const getReader = reader.result;
           if (!getReader || getReader === "") {
+            errorRef.value = "getReader error";
             reject("getReader error");
             return;
           }
@@ -88,6 +92,7 @@ export default {
           })
           .catch((err) => {
             inputRef.value = "";
+            errorRef.value = `image error error ${err}`;
             console.error("image error :" + err);
           });
         return;
@@ -109,6 +114,7 @@ export default {
           inputRef.value = "";
           videoRef.value.src = null;
           codeReader.reset();
+          errorRef.value = `getCameraChange error ${err}`;
           console.log("getCameraChange error", err);
         });
     };
@@ -118,6 +124,7 @@ export default {
       inputRef,
       imageRef,
       oData,
+      errorRef,
       cameraClick,
       getCameraChange,
     };

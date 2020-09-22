@@ -98,9 +98,9 @@ export default {
             inputRef.value = "";
             videoRef.value.src = null;
             codeReader.reset();
-            if (tmpUrl.value !== "") {
-              window.URL.revokeObjectURL(tmpUrl.value);
-            }
+            // if (tmpUrl.value !== "") {
+            //   window.URL.revokeObjectURL(tmpUrl.value);
+            // }
             step.s3 = "qrcodeObject OK ... (reset all) ";
           }
         })

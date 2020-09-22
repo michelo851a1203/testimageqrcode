@@ -83,7 +83,7 @@ export default {
         mainFileList[0].type === "image/jpg" ||
         mainFileList[0].type === "image/jepg" ||
         mainFileList[0].type === "image/png";
-      errorRef.value = `${typeBoolean}`;
+      errorRef.value = `${mainFileList[0].type}`;
       if (typeBoolean) {
         fileToPreview
         // fileToPreview(mainFileList[0])

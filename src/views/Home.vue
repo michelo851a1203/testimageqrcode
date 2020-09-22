@@ -68,9 +68,9 @@ export default {
             reject("getReader error");
             return;
           }
-          errorRef.value = `imageSrc get ${getReader}`;
           imageSrc.value = getReader;
-          imageSrc.value.onload = () => {
+          imageRef.value.onload = () => {
+            errorRef.value = `imageSrc get ${getReader}`;
             resolve(imageRef.value);
           }
         };

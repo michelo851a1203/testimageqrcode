@@ -23,10 +23,10 @@ export default {
       codeReader
         .decodeFromImage(imageElement)
         .then((result) => {
-          oResult.value = result;
+          oResult.value = result.text;
         })
         .catch((err) => {
-          console.error("image qrcode error");
+          console.error(`image qrcode error ${err}`);
         });
     });
     return { imageRef, mainSrc, oResult };

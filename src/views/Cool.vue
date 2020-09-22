@@ -1,18 +1,15 @@
 <template>
   <div>
-    <input @change="mainChange" type="file" ref="mainRef" />
+    <qrcodebyimage></qrcodebyimage>
   </div>
 </template>
 
 <script>
+import qrcodebyimage from "@/components/QrcodeByImage.vue";
 export default {
   name: "Cool",
-  setup() {
-    const mainChange = (event) => {
-      const file = event.target.files[0];
-      console.log(file);
-    };
-    return { mainChange };
+  components: {
+    qrcodebyimage,
   },
 };
 </script>

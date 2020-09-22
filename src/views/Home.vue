@@ -91,7 +91,7 @@ export default {
             return codeReader.decodeFromImage(imgElement);
           })
           .then((decodeData) => {
-            oData.value = decodeData;
+            oData.value = decodeData.text;
             inputRef.value = "";
           })
           .catch((err) => {

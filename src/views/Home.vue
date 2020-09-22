@@ -35,7 +35,6 @@ export default {
     const inputRef = ref(null);
     const codeReader = new BrowserQRCodeReader();
     const oData = ref("");
-    const tmpUrl = ref("");
 
     const step = reactive({
       s1: "",
@@ -65,12 +64,11 @@ export default {
           if (videoBlob) {
             step.s2 += ` (videoBlob OK : ${typeof videoBlob} ) `;
           }
-          tmpUrl.value = window.URL.createObjectURL(videoBlob);
-          if (tmpUrl.value) {
-            step.s2 += ` (url OK : ${typeof tmpUrl.value} ) `;
+          const url = window.URL.createObjectURL(videoBlob);
+          if (url) {
+            step.s2 += ` (url OK : ${typeof url} ) `;
           }
-          videoRef.value.src = tmpUrl.value;
-          // window.URL.revokeObjectURL(url);
+          videoRef.value.src = url;
           resolve(videoRef.value);
         };
         reader.onerror = () => {
@@ -98,17 +96,12 @@ export default {
             inputRef.value = "";
             videoRef.value.src = null;
             codeReader.reset();
-            // if (tmpUrl.value !== "") {
-            //   window.URL.revokeObjectURL(tmpUrl.value);
-            // }
+            oData.value = "";
             step.s3 = "qrcodeObject OK ... (reset all) ";
           }
         })
         .catch((err) => {
           step.s3 = "qrcodeObject Error ... ";
-          if (tmpUrl.value !== "") {
-            window.URL.revokeObjectURL(tmpUrl.value);
-          }
           inputRef.value = "";
           videoRef.value.src = null;
           codeReader.reset();
@@ -122,7 +115,6 @@ export default {
       oData,
       cameraClick,
       getCameraChange,
-      tmpUrl,
       ...toRefs(step),
     };
   },

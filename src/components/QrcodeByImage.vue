@@ -20,6 +20,9 @@ export default {
     onMounted(() => {
       if (!imageRef.value.src || imageRef.value.src === "") return;
       const imageElement = imageRef.value;
+      imageElement.onload = () => {
+        console.log("oka");
+      }
       codeReader
         .decodeFromImage(imageElement)
         .then((result) => {

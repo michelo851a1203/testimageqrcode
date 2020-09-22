@@ -70,7 +70,9 @@ export default {
           }
           errorRef.value = `imageSrc get ${getReader}`;
           imageSrc.value = getReader;
-          resolve(imageRef.value);
+          imageSrc.value.onload = () => {
+            resolve(imageRef.value);
+          }
         };
         reader.onerror = () => reject("onload fail");
       });

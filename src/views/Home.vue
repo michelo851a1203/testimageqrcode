@@ -85,6 +85,7 @@ export default {
         mainFileList[0].type === "image/png";
       errorRef.value = `${typeBoolean}`;
       if (typeBoolean) {
+        fileToPreview
         // fileToPreview(mainFileList[0])
         //   .then((imgElement) => {
         //     errorRef.value = "imgElement is here";

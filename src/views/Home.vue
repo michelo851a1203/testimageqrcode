@@ -11,7 +11,7 @@
     <p>============================================</p>
     <p>step3:{{ s3 }}</p>
     <p>============================================</p>
-    <br/>
+    <br />
     <span>result : {{ oData }}</span>
     <video class="w-full h-full" ref="videoRef"></video>
     <input
@@ -43,58 +43,64 @@ export default {
     });
 
     const cameraClick = () => {
-      step.s1 = ""
-      step.s2 = ""
-      step.s3 = ""
+      step.s1 = "";
+      step.s2 = "";
+      step.s3 = "";
       inputRef.value.click();
     };
 
     // fileReader to Video
     const filereaderToVideo = (file) =>
       new Promise((resolve, reject) => {
-        step.s2 = "fileReader start ... "
+        step.s2 = "fileReader start ... ";
         const reader = new FileReader();
         reader.readAsArrayBuffer(file);
         reader.onload = (event) => {
-          step.s2 = "fileReader onload ... "
+          step.s2 = "fileReader onload ... ";
           const buffer = event.target.result;
           const videoBlob = new Blob([new Uint8Array(buffer)], {
             type: "video/mp4",
           });
+          if (videoBlob) {
+            step.s2 += ` (videoBlob OK : ${typeof videoBlob} ) `;
+          }
           const url = window.URL.createObjectURL(videoBlob);
+          if (url) {
+            step.s2 += ` (url OK : ${typeof url} ) `;
+          }
           videoRef.value.src = url;
           resolve(videoRef.value);
         };
         reader.onerror = () => {
-          step.s2 = "fileReader error ... "
+          step.s2 = "fileReader error ... ";
           reject(`fileReader error`);
         };
       });
 
     // get file to
     const getCameraChange = async (event) => {
-      step.s1 = "getCameraChange start ... "
+      step.s1 = "getCameraChange start ... ";
       const mainFileList = event.target.files;
       if (mainFileList.length === 0 || inputRef.value === "") return;
       filereaderToVideo(mainFileList[0])
         .then((video) => {
-          step.s3 = "getvideo ... "
+          step.s3 = "getvideo ... ";
           return codeReader.decodeFromVideo(video);
         })
         .then((qrcodeObject) => {
-          step.s3 = "getvideo qrcodeObject ... "
+          step.s3 = "getvideo qrcodeObject ... ";
           if (!qrcodeObject || qrcodeObject.text === "") return;
           oData.value = qrcodeObject.text;
-          step.s3 = "qrcodeObject OK ... "
+          step.s3 = "qrcodeObject OK ... ";
           if (oData.value !== "") {
             inputRef.value = "";
             videoRef.value.src = null;
             codeReader.reset();
-            step.s3 = "qrcodeObject OK ... (reset all) "
+            step.s3 = "qrcodeObject OK ... (reset all) ";
           }
         })
         .catch((err) => {
-          step.s3 = "qrcodeObject Error ... "
+          step.s3 = "qrcodeObject Error ... ";
           console.log("getCameraChange error", err);
         });
     };

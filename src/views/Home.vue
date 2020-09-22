@@ -81,25 +81,24 @@ export default {
 
       const typeBoolean =
         mainFileList[0].type === "image/jpg" ||
-        mainFileList[0].type === "image/jepg" ||
+        mainFileList[0].type === "image/jpeg" ||
         mainFileList[0].type === "image/png";
-      errorRef.value = `${mainFileList[0].type}`;
+      errorRef.value = `${typeBoolean}`;
       if (typeBoolean) {
-        fileToPreview
-        // fileToPreview(mainFileList[0])
-        //   .then((imgElement) => {
-        //     errorRef.value = "imgElement is here";
-        //     return codeReader.decodeFromImage(imgElement);
-        //   })
-        //   .then((decodeData) => {
-        //     oData.value = decodeData;
-        //     inputRef.value = "";
-        //   })
-        //   .catch((err) => {
-        //     inputRef.value = "";
-        //     errorRef.value = `image error error ${err}`;
-        //     console.error("image error :" + err);
-        //   });
+        fileToPreview(mainFileList[0])
+          .then((imgElement) => {
+            errorRef.value = "imgElement is here";
+            return codeReader.decodeFromImage(imgElement);
+          })
+          .then((decodeData) => {
+            oData.value = decodeData;
+            inputRef.value = "";
+          })
+          .catch((err) => {
+            inputRef.value = "";
+            errorRef.value = `image error error ${err}`;
+            console.error("image error :" + err);
+          });
         return;
       }
 

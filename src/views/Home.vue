@@ -19,7 +19,7 @@
 
 <script>
 // @ is an alias to /src
-import { ref, reactive, toRefs } from "vue";
+import { ref } from "vue";
 import { BrowserQRCodeReader } from "@zxing/library";
 export default {
   name: "Home",
@@ -29,7 +29,6 @@ export default {
     const imageRef = ref(null);
     const codeReader = new BrowserQRCodeReader();
     const oData = ref("");
-
 
     const cameraClick = () => {
       inputRef.value.click();
@@ -71,7 +70,6 @@ export default {
       });
     // get file to
     const getCameraChange = async (event) => {
-      step.s1 = "getCameraChange start ... ";
       const mainFileList = event.target.files;
       if (mainFileList.length === 0 || inputRef.value === "") return;
 
@@ -122,7 +120,6 @@ export default {
       oData,
       cameraClick,
       getCameraChange,
-      ...toRefs(step),
     };
   },
 };

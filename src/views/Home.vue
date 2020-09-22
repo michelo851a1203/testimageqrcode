@@ -43,6 +43,9 @@ export default {
     });
 
     const cameraClick = () => {
+      step.s1 = ""
+      step.s2 = ""
+      step.s3 = ""
       inputRef.value.click();
     };
 

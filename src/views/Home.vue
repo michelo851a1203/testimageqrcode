@@ -6,7 +6,7 @@
     >test scan</button>
     <p>result : {{ oData }}</p>
     <p>is error : {{ errorRef }}</p>
-    <img ref="imageRef" alt />
+    <img :src="imageSrc" ref="imageRef" alt />
     <video class="w-full h-full" ref="videoRef"></video>
     <input
       ref="inputRef"
@@ -28,6 +28,7 @@ export default {
     const videoRef = ref(null);
     const inputRef = ref(null);
     const imageRef = ref(null);
+    const imageSrc = ref("");
     const errorRef = ref("");
     const codeReader = new BrowserQRCodeReader();
     const oData = ref("");
@@ -67,7 +68,8 @@ export default {
             reject("getReader error");
             return;
           }
-          imageRef.value.src = getReader;
+          errorRef.value = `imageSrc get ${getReader}`;
+          imageSrc.value = getReader;
           resolve(imageRef.value);
         };
         reader.onerror = () => reject("onload fail");
@@ -84,6 +86,7 @@ export default {
       if (typeBoolean) {
         fileToPreview(mainFileList[0])
           .then((imgElement) => {
+            errorRef.value = "imgElement is here";
             return codeReader.decodeFromImage(imgElement);
           })
           .then((decodeData) => {
@@ -123,6 +126,7 @@ export default {
       videoRef,
       inputRef,
       imageRef,
+      imageSrc,
       oData,
       errorRef,
       cameraClick,

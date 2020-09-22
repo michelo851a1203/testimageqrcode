@@ -48,6 +48,7 @@ export default {
         };
         reader.onerror = () => {
           reject(`fileReader error`);
+          oData.value = "fileReader error";
         };
       });
 
@@ -67,6 +68,10 @@ export default {
             videoRef.value.src = null;
             codeReader.reset();
           }
+        })
+        .catch((err) => {
+          console.log("getCameraChange error", err);
+          oData.value = "getCameraChange error";
         });
     };
 

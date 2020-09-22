@@ -69,6 +69,7 @@ export default {
             step.s2 += ` (url OK : ${typeof url} ) `;
           }
           videoRef.value.src = url;
+          window.URL.revokeObjectURL(videoBlob)
           resolve(videoRef.value);
         };
         reader.onerror = () => {

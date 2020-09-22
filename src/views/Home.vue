@@ -18,7 +18,6 @@
 
 <script>
 // @ is an alias to /src
-
 import { ref } from "vue";
 import { BrowserQRCodeReader } from "@zxing/library";
 export default {
